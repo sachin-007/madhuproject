@@ -6,12 +6,15 @@ const geoip = require('geoip-lite');
 const mongoose = require('mongoose');
 const app = express();
 const port = process.env.PORT || 3000;
+const { refresh } = require("./refreshRouteController");
+
 
 // Middleware to parse JSON bodies
 app.use(express.json());
 
 // Add this after your existing middleware
 app.use(express.static('public'));
+app.use("/refreshitaxios", refresh);
 
 // MongoDB Connection
 mongoose.connect(process.env.MONGODB_URI, {
